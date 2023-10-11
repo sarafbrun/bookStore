@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAll, addBook, getById, updateBook, deleteBook } = require('../models/books.model');
+const { getAll, addBook, getById, updateBook, deleteBook, findBook } = require('../models/books.model');
 const { checkId } = require('../middlewares/checks');
 const router = express.Router();
 
@@ -34,6 +34,27 @@ router.get('/:id', checkId, async (req, res) => {
         })
     }
 });
+
+router.get("/find/:find", async (req, res) => {
+    const { find } = req.params
+    try {
+        const [data] = await findBook(find)
+        if (data.length === 0) {
+            return res.status(404).json({
+                data: "Ningún libro coincide con tu búsqueda"
+            })
+        }
+        res.status(200).json({
+            data
+        })
+    } catch (error) {
+        res.status(500).json({
+            status: "error",
+            error: error.message
+        })
+    }
+})
+
 
 
 router.post('/', async (req, res) => {
