@@ -5,36 +5,33 @@ import { useBooks } from './hooks/useBooks'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Header } from './layout/Header';
 
-
+function useSearch() {
+  const [search, setSearch] = useState('')
+  return { search, setSearch }
+}
 
 
 function App() {
-  const [search, setSearch] = useState('')
-  const [books, setBooks] = useState([])
-
-  const getBooks = async () => {
-    const data = await fetch('http://localhost:3000/api/books')
-    const responseBooks = await data.json();
-    if (data.status === 200) {
-      setBooks(responseBooks.data)
-    }
-  }
+  const { search, setSearch } = useSearch()
+  const { books, getBooks } = useBooks({ search })
 
 
   const handleSearch = (event) => {
     event.preventDefault()
+    const newSearch = event.target.value;
+    console.log(newSearch)
 
-    //Nos aseguramos de utilizar el último valor almacenándolo
-    const newSearch = event.target.value
-    if (newSearch.startsWith(' ')) return
+    if (search.startsWith(' ')) return
 
     setSearch(newSearch)
+
   }
+
 
   useEffect(() => {
     getBooks()
-    console.log('Se esta mostrando:', books)
-  }, [])
+    // console.log(search)
+  }, [getBooks, search])
 
 
   return (

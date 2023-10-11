@@ -1,5 +1,4 @@
-export function Books({ books }) {
-
+export function ListOfBooks({ books }) {
     return (
         <ul className="books">
             {books.map(book =>
@@ -14,5 +13,20 @@ export function Books({ books }) {
                 </li>
             ))}
         </ul>
+    )
+}
+
+export function NoBooksResult() {
+    return (
+        <p>No se encontraron libros para esta búsqueda.</p>
+    )
+}
+
+export function Books({ books }) {
+    const hasBooks = books?.length > 0;
+    return (
+        hasBooks
+            ? <ListOfBooks books={books} />
+            : <NoBooksResult />
     )
 }

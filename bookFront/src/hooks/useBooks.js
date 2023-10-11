@@ -1,10 +1,31 @@
-import withResults from '../mocks/withResults.json'
-import { useState } from 'react'
+import withoutResults from '../mocks/withoutResults.json'
+import { useState, useEffect } from 'react'
 
-export function useBooks() {
-    const [responseBooks, setResponseBooks] = useState([])
+export function useBooks(search) {
+    const [books, setBooks] = useState([]);
 
-    const books = withResults.data
+    const getBooks = async () => {
+        if (search) {
+            try {
+                const response = await fetch('http://localhost:3000/api/books');
+                if (response.ok) {
+                    const data = await response.json();
+                    setBooks(data.data);
+                } else {
+                    console.error('Error fetching data:', response.statusText);
+                }
+            } catch (error) {
+                console.error('An error occurred:', error);
+            }
+        } else {
+            setBooks(withoutResults)
+        }
+
+
+    };
+
+
+
 
     const mappedBooks = books.map(book => ({
         id: book.id,
