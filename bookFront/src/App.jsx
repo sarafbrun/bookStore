@@ -13,25 +13,27 @@ function useSearch() {
 
 function App() {
   const { search, setSearch } = useSearch()
-  const { books, getBooks } = useBooks({ search })
+  const { books, getBooks, findBooks } = useBooks({ search })
+
 
 
   const handleSearch = (event) => {
     event.preventDefault()
     const newSearch = event.target.value;
-    console.log(newSearch)
 
     if (search.startsWith(' ')) return
 
-    setSearch(newSearch)
+    findBooks(newSearch)
+
 
   }
 
 
   useEffect(() => {
     getBooks()
+
     // console.log(search)
-  }, [getBooks, search])
+  }, [])
 
 
   return (

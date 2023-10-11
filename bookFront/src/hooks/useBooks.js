@@ -5,24 +5,44 @@ export function useBooks(search) {
     const [books, setBooks] = useState([]);
 
     const getBooks = async () => {
-        if (search) {
-            try {
-                const response = await fetch('http://localhost:3000/api/books');
-                if (response.ok) {
-                    const data = await response.json();
-                    setBooks(data.data);
-                } else {
-                    console.error('Error fetching data:', response.statusText);
-                }
-            } catch (error) {
-                console.error('An error occurred:', error);
+
+
+
+        try {
+            const response = await fetch('http://localhost:3000/api/books');
+            if (response.ok) {
+                const data = await response.json();
+                setBooks(data.data);
+            } else {
+                console.error('Error fetching data:', response.statusText);
             }
-        } else {
-            setBooks(withoutResults)
+        } catch (error) {
+            console.error('An error occurred:', error);
         }
 
 
+
     };
+
+    const findBooks = async (search) => {
+
+
+        try {
+            const result = await fetch('http://localhost:3000/api/books/find/' + search)
+            const data = await result.json();
+            console.log(data);
+            if (data.ok) {
+                setBooks(data.data)
+            }
+
+        } catch (error) {
+            console.log('Error fetching data:', error)
+        }
+
+
+
+
+    }
 
 
 
@@ -39,5 +59,5 @@ export function useBooks(search) {
 
 
 
-    return { books: mappedBooks, getBooks };
+    return { books: mappedBooks, getBooks, findBooks };
 }
