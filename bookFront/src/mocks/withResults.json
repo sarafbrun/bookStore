@@ -1,0 +1,34 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "title": "libro de ejemplo",
+            "description": "Esto es un libro de ejemplo",
+            "saga": null,
+            "image": null,
+            "author": "Autor de ejemplo",
+            "year": 2023,
+            "ISBN10": 547896
+        },
+        {
+            "id": 2,
+            "title": "libro",
+            "description": "kcjbskjdbkj",
+            "saga": null,
+            "image": null,
+            "author": null,
+            "year": null,
+            "ISBN10": 354654
+        },
+        {
+            "id": 3,
+            "title": "kcjekjsdb",
+            "description": "lkjnkjb",
+            "saga": null,
+            "image": null,
+            "author": null,
+            "year": null,
+            "ISBN10": 6546456
+        }
+    ]
+}
